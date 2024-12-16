@@ -1,6 +1,6 @@
 import numpy as np
 
-def estimate_win_probability(ntrials: int = 100000) -> float:
+def estimate_win_probability(seed: int = 13, ntrials: int = 100000) -> float:
     """
     Simulate a game where two players add random integers between 1 and 100 to a running total.
 
@@ -11,23 +11,27 @@ def estimate_win_probability(ntrials: int = 100000) -> float:
 
     ntrials: the number of trials to run.
 
+    seed: the random seed to use.
     return: the estimated probability that the second player wins.
     """
+    if ntrials <= 0 or ntrials != int(ntrials):
+        raise ValueError("ntrials must be a positive integer.")
+        
+    np.random.seed(seed)
+    
     player_two_win = 0
     for i in range(ntrials):
         
         S = 0
         
-        while S < 100:
+        while S <= 100:
             player_one_last_value = np.random.randint(1, 101)
             S += player_one_last_value
         
-        while S < 200:
+        while S <= 200:
             player_two_last_value = np.random.randint(1, 101)
             S += player_two_last_value
         
         player_two_win += player_two_last_value > player_one_last_value
     
     return player_two_win / ntrials
-
-print(estimate_win_probability())
