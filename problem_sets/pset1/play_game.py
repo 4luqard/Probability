@@ -1,6 +1,6 @@
 import numpy as np
 
-def estimate_win_probability(seed: int = 13, ntrials: int = 100000) -> float:
+def estimate_win_probability(seed: int = None, ntrials: int = 100000) -> float:
     """
     Simulate a game where two players add random integers between 1 and 100 to a running total.
 
